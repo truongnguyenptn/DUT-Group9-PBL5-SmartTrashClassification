@@ -1,0 +1,6 @@
+fragment FileInputFragment on FileInput {
+  name
+  size
+  url
+  type
+}

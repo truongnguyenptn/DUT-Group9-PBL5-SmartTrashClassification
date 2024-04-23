@@ -1,0 +1,15 @@
+query me($email: String!, $username: String!) {
+  me(email: $email, username: $username) {
+    id
+    email
+    username
+    clientHasNewMessage
+    lastMessageId
+    lastNameFamilyMember
+    firstNameFamilyMember
+    civilityFamilyMember
+    createdAt
+    firstMessageId
+    inboxName
+  }
+}

@@ -1,0 +1,6 @@
+mutation upsertTrackingDriver($input: TrackingDriverCreateInputDto!) {
+  upsertTrackingDriver(input: $input) {
+    id
+    status
+  }
+}

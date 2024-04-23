@@ -1,0 +1,27 @@
+{
+  "extends": ["@enouvo/eslint-config-react"],
+  "rules": {
+    "@typescript-eslint/naming-convention": "warn"
+  },
+  "ignorePatterns": [
+    "src/vite-env.d.ts,vite.config.ts,vitest.setup.ts,scripts/"
+  ],
+  "overrides": [
+    {
+      "files": ["*.{spec,test}.{ts,tsx,js,jsx}"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off",
+        "prefer-destructuring": [
+          "error",
+          {
+            "array": false,
+            "object": true
+          },
+          {
+            "enforceForRenamedProperties": false
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+query getMessageFiles($queryParams: QueryFilterDto!) {
+  getMessageFiles(queryParams: $queryParams) {
+    meta {
+      ...MetaFragment
+    }
+    items {
+      id
+      file
+      media
+      link
+      type
+      messageId
+      createdAt
+      updatedAt
+      fileType
+      fileName
+      fileSize
+      senderName
+    }
+  }
+}

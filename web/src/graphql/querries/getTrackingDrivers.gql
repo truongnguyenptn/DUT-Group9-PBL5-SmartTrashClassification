@@ -1,0 +1,23 @@
+query getTrackingDrivers(
+  $queryParams: QueryFilterDto!
+  $providerEmail: String!
+) {
+  getTrackingDrivers(queryParams: $queryParams, providerEmail: $providerEmail) {
+    meta {
+      ...MetaFragment
+    }
+    items {
+      id
+      placeOfDeparture
+      placeOfArrival
+      providerEmail
+      caseName
+      departureName
+      arrivalName
+      status
+      transportId
+      departurePhotoKey
+      arrivePhotoKey
+    }
+  }
+}
