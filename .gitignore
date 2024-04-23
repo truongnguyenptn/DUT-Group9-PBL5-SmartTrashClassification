@@ -1,0 +1,15 @@
+*/data/
+*/dataset/
+*/*data*/
+*/saved_models/*
+*/transfer_learning/*.h5
+*/transfer_learning/*.keras
+*/*/saved_models/*.h5
+*/*/Trash_classifier/*.h5
+*/transfer_learning/dataset
+transfer_learning/Resnet_TL_model.h5
+transfer_learning/Resnet_TL_model.keras
+transfer_learning/TrashClassification_Model_Transfer4.h5
+*.pdf
+*.keras
+*.h5

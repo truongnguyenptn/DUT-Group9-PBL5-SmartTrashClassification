@@ -1,0 +1,40 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Trash Classifier API",
+      "description": "API for classifying trash images",
+      "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+      "/predict": {
+        "post": {
+          "summary": "Classify an uploaded image",
+          "parameters": [
+            {
+              "name": "img",
+              "in": "formData",
+              "type": "file",
+              "required": true,
+              "description": "The image file to classify"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Class prediction",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "class": {
+                    "type": "string",
+                    "description": "The predicted class"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
