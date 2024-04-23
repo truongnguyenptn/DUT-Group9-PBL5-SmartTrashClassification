@@ -13,3 +13,4 @@ transfer_learning/TrashClassification_Model_Transfer4.h5
 *.pdf
 *.keras
 *.h5
+*/node_modules
