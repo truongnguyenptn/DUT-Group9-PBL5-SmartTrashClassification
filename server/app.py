@@ -2,9 +2,10 @@ from flask import Flask,render_template,request,jsonify
 import numpy as np
 import cv2
 import tensorflow as tf
+from openrouteservice import client
 from flask_swagger_ui import get_swaggerui_blueprint
 from flasgger import Swagger
-
+import subprocess
 app = Flask(__name__)
 swagger = Swagger(app)
 # Define Swagger UI blueprint
@@ -71,6 +72,7 @@ def submit():
 		img_byte_string = img_data.read()
 		#print('type of data:',type(img_byte_string))
 		#print('*****')
+  
 		#print('')
 
 		#read byte string to form 1d array
@@ -110,8 +112,117 @@ def submit():
 
 		return jsonify(data)
 
-	
+@app.route("/find_route", methods=['POST'])
+def find_route():
+    """
+    Find Route API
+    ---
+    parameters:
+      - name: geojson
+        in: body
+        type: object
+        required: true
+        description: GeoJSON containing coordinates
+        schema:
+          type: object
+          properties:
+            geojson:
+              type: array
+              items:
+                type: array
+                items:
+                  type: number
+    # responses:
+    #   200:
+    #     description: Directions response
+    #     schema:
+    #       type: object
+    #       properties:
+    #         // Define your response schema here
+    """
+    json_data = request.json()
+    coordinates = json_data.get('geojson')
+    reversed_coordinates = [[lng, lat] for lat, lng in coordinates]
+    print(reversed_coordinates)
+
+    api_key = '5b3ce3597851110001cf6248af5aa7185732404599ff7695349f6726'
+    ors_client = client.Client(key=api_key)
+
+    matrix = ors_client.distance_matrix(
+        locations=reversed_coordinates,
+        profile='driving-hgv',  # Specify the transportation profile
+        metrics=['duration'],  # Specify whether to calculate distance, duration, or both
+    )
+    # Print the distance matrix
+    print(matrix)
+
+    distance_matrix = matrix['durations']
+    print(distance_matrix)
+
+
+    npoints = len(reversed_coordinates)
+    size_1 = (1 << npoints) + 5
+    size_2 = npoints + 1
+    dp = [[0] * size_2 for _ in range(size_1)]
+    par = [[0] * size_2 for _ in range(size_1)]
+
+    for i in range(size_1):
+        for j in range(size_2):
+            dp[i][j] = int(1e18)
+            par[i][j] = -1
+
+    dp[1][0] = 0
+    par[1][0] = -1
+
+    for mask in range(size_1):
+        for last in range(npoints - 1):
+            if dp[mask][last] == 1e18:
+                continue
+            for nxt in range(npoints - 1):
+                if (mask >> nxt) & 1:
+                    continue
+                else:
+                    dist = distance_matrix[last][nxt]
+                    nmask = mask + (1 << nxt)
+                    if dp[nmask][nxt] > dp[mask][last] + dist:
+                        dp[nmask][nxt] = dp[mask][last] + dist
+                        par[nmask][nxt] = last
+    for last in range(npoints - 1):
+        nxt = npoints - 1
+        dist = distance_matrix[last][nxt]
+        mask = (1 << (npoints-1)) - 1
+        nmask = (1 << npoints) - 1
+        if dp[nmask][nxt] > dp[mask][last] + dist:
+            dp[nmask][nxt] = dp[mask][last] + dist
+            par[nmask][nxt] = last
+
+    done = (1 << npoints) - 1
+    print(dp[(1 << npoints) - 1][npoints - 1])
+    cur = (done, npoints - 1)
+
+    route = []
+    while cur[1] != -1:
+        print(cur)
+        route.append(cur[1])
+        pre1 = par[cur[0]][cur[1]]
+        pre0 = cur[0] - (1 << cur[1])
+        cur = (pre0, pre1)
+    route.reverse()
+    print(route)
+    route_coordinates = []
+    for index, value in enumerate(route):
+        route_coordinates.append(reversed_coordinates[value])
+
+    response = ors_client.directions(
+            coordinates= route_coordinates,
+            profile='driving-hgv',
+            format='geojson',
+            preference='shortest'
+    )
+    # print(response)
+    return response
 
 
 if __name__ == '__main__':
-	app.run()
+    gunicorn_command = "gunicorn -w 4 -b 0.0.0.0:5000 app:app"
+    subprocess.run(gunicorn_command, shell=True)

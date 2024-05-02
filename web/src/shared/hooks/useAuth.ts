@@ -58,19 +58,27 @@ export function useAuth() {
     isError,
     isLoading,
     login: (email: string, name: string, rememberMe: boolean) => {
-      getContact({ email: email.toLowerCase(), name });
+      // getContact({ email: email.toLowerCase(), name });
 
-      const contactData = getContactData();
+      // const contactData = getContactData();
 
-      if (contactData) {
-        update(JSON.parse(contactData));
-      }
+      // if (contactData) {
+      //   update(JSON.parse(contactData));
+      // }
 
-      if (rememberMe) {
-        setLoginInformation({ email, name, rememberMe });
-      } else {
-        clearLoginInformation();
-      }
+      // if (rememberMe) {
+      //   setLoginInformation({ email, name, rememberMe });
+      // } else {
+      //   clearLoginInformation();
+      // }
+
+      setProviderCompanyName("company");
+      setName("smartcity");
+      setName("smartcity@gmail.com");
+
+      showSuccess(t('message.loginSuccess'));
+      navigate(PATH_URL.home);
+      scrollToTop();
     },
     signOut: () => {
       clearEmail();

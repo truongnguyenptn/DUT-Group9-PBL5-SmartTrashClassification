@@ -17,7 +17,7 @@ export default function ContactFuneralProvider({
   return (
     <div className="rounded-lg bg-white px-6 py-5 sm:border-none md:p-4">
       <Typography.Title className="mb-3 text-primary md:text-lg" level={4}>
-        {t('contact.funeralProvider')}
+        {t('Smart Trash Bin')}
       </Typography.Title>
 
       <div className="grid grid-cols-2 gap-x-4 gap-y-2 lg:grid-cols-1 lg:gap-y-3">

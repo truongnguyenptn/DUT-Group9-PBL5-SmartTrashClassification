@@ -14,3 +14,17 @@ transfer_learning/TrashClassification_Model_Transfer4.h5
 *.keras
 *.h5
 */node_modules
+venv
+*.sqlite*
+migrations
+__pycache__
+*.pyc
+*.pyo
+settings.json
+*.sublime-*
+test.py
+django_server/fixtures/*.json
+/design
+/video
+/private-data
+*/web/

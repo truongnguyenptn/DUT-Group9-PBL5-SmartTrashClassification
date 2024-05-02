@@ -9,19 +9,19 @@ function withGuardRoute<T extends object>(
 ) {
   return function (props: T) {
     const navigate = useNavigate();
-    useEffect(() => {
-      const email = getEmail();
-      if (!email && isPrivate) {
-        navigate(PATH_URL.login, {
-          replace: true,
-        });
-      }
-      if (email && !isPrivate) {
-        navigate(PATH_URL.home, {
-          replace: true,
-        });
-      }
-    }, [navigate]);
+    // useEffect(() => {
+    //   const email = getEmail();
+    //   if (!email && isPrivate) {
+    //     navigate(PATH_URL.login, {
+    //       replace: true,
+    //     });
+    //   }
+    //   if (email && !isPrivate) {
+    //     navigate(PATH_URL.home, {
+    //       replace: true,
+    //     });
+    //   }
+    // }, [navigate]);
 
     if (!navigator.onLine) location.reload();
     return <WrappedComponent {...props} />;

@@ -25,6 +25,7 @@ import { ReactComponent as ZoomOutlineSVG } from '#/assets/svgs/zoom-outline.svg
 import { HASH_MAP_VIEW } from '#/shared/utils/constant';
 import SingleMarker from '#/assets/svgs/single-marker-filled.svg';
 import { useSectionLayoutGoogleMapVisible } from '#/shared/hooks/useRenderSectionLayoutGoogleMap';
+import { TransportationMode } from '#/shared/utils/type/transportation';
 
 export const makePolyline = (markers: ServiceType[]) =>
   markers.map(e => {
@@ -42,7 +43,41 @@ export interface MapProps {
 }
 
 function Map({
-  markers,
+  markers =[
+    {
+      id: 1,
+      address: "123 Main St",
+      date: "2024-04-30",
+      image: "https://example.com/image.jpg",
+      lat: 40.7128,
+      lng: -74.0060,
+      number: 42,
+      placeId: 123456,
+      status: "Pending",
+      statusId: 1,
+      step: true,
+      title: "Service Title",
+      typeOpe: 2,
+      mode: TransportationMode.Car,
+    },
+    {
+      id: 2,
+      address: "456 Elm St",
+      date: "2024-05-01",
+      image: "https://example.com/photo.jpg",
+      lat: 42.3601,
+      lng: -71.0589,
+      number: 88,
+      placeId: 789012,
+      status: "Completed",
+      statusId: 2,
+      step: false,
+      title: "Another Service",
+      typeOpe: 3,
+      mode: TransportationMode.Bus,
+    },
+    // Add more mock data entries as needed
+  ],
   options = { fullscreenControl: false },
   setMap,
   map,

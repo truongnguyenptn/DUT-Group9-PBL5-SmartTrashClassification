@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getToken } from '../shared/utils/localStorage';
-import { getLocale } from './../shared/utils/locale';
+import { getLocale } from '../shared/utils/locale';
 import i18n from '#/shared/i18n';
 import { ErrorCode } from '#/shared/utils/type/common';
 

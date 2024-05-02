@@ -56,7 +56,7 @@ export default function Header() {
       <div className="border-b border-b-primary">
         <div className="mx-auto flex h-fit max-w-container items-center justify-between py-3 xl:px-4">
           <Link className="h-8" to={email ? PATH_URL.home : PATH_URL.login}>
-            <Image preview={false} src={Logo} width={95} />
+            Smart city
           </Link>
 
           <div className="flex items-center space-x-2">

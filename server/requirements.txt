@@ -1,5 +1,8 @@
+numpy==1.26.0 
 tensorflow-cpu
-opencv-python
-numpy
+opencv-python-headless==4.5.3.56
 flask
-
+flask-swagger-ui
+flasgger
+openrouteservice
+gunicorn

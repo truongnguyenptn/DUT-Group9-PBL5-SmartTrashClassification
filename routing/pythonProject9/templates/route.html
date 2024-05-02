@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #coordinates { margin-top: 10px; }
+        #startPoint, #endPoint { color: inherit; } /* Set text color to inherit from parent */
+        #startPoint.blue { color: blue; } /* Override color for Start Point */
+        #endPoint.red { color: red; } /* Override color for End Point */
+        #wayPoints.green { color: green; } /* Override color for Way Points */
+        #map {
+            float: right;
+            width: 70%;
+            height: 100vh;
+        }
+
+        #controls {
+            float: left;
+            width: 30%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .control {
+            margin-bottom: 10px;
+        }
+
+        #waypoints {
+            overflow-y: auto;
+            height: 200px; /* Adjust the height as needed */
+        }
+
+        .waypoint-list {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    < <div id="map"></div>
+    <div id="controls">
+        <div class="control">
+            <button id="startPointBtn">Choose a start point</button>
+            <div id="startPoint" class="blue">Start Point: <br>Latitude: <br>Longitude:</div>
+        </div>
+        <div class="control">
+            <button id="endPointBtn">Choose an end point</button>
+            <div id="endPoint" class="red">End Point: <br>Latitude: <br>Longitude:</div>
+        </div>
+        <div class="control">
+            <button id="addWaypointBtn">Add a waypoint</button>
+
+            <div id="wayPoints" class="green"></div>
+        </div>
+
+        <div class="control">
+            <button id="findRouteBtn">Find route</button>
+
+            <div id="totalTime"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+     <script>
+        var map = L.map('map').setView([16.0544, 108.2022], 14); // Da Nang city coordinates: [16.0544, 108.2022]
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var startPointBtn = document.getElementById('startPointBtn');
+        var endPointBtn = document.getElementById('endPointBtn');
+        var wayPointBtn = document.getElementById('wayPointBtn');
+        var findRouteBtn = document.getElementById('findRouteBtn');
+        var startPointDiv = document.getElementById('startPoint');
+        var totalTimeDiv = document.getElementById('totalTime');
+        var endPointDiv = document.getElementById('endPoint');
+        var wayPointsDiv = document.getElementById('wayPoints');
+        var startMarker, endMarker;
+        var waypointMarkers = [];
+        var start, end;
+        var waypoints = []; // Array to store endpoints
+        var routeLayer = null;
+
+
+        function onStartPointClick() {
+
+            map.off('click', onEndPointMapClick);
+            map.off('click', onWayPointMapClick);
+            map.on('click', onStartPointMapClick);
+        }
+
+        function onEndPointClick() {
+
+            map.off('click', onStartPointMapClick);
+            map.off('click', onWayPointMapClick);
+            map.on('click', onEndPointMapClick);
+        }
+
+        function onWayPointClick() {
+
+
+            if (waypoints.length >= 15) {
+                    alert('Maximum number of waypoints reached');
+                    return;
+            }
+
+            map.off('click', onStartPointMapClick);
+            map.off('click', onEndPointMapClick);
+            map.on('click', onWayPointMapClick);
+        }
+
+        function onStartPointMapClick(e) {
+            if (startMarker) {
+                map.removeLayer(startMarker);
+            }
+            start = e.latlng
+            startMarker = L.circleMarker(e.latlng, { color: 'blue', radius: 8 }).addTo(map);
+            startPointDiv.innerHTML = "Start Point: <br>Latitude: " + e.latlng.lat.toFixed(4) + "<br>Longitude: " + e.latlng.lng.toFixed(4);
+        }
+
+        function onEndPointMapClick(e) {
+            if (endMarker) {
+                map.removeLayer(endMarker);
+            }
+            end = e.latlng
+            endMarker = L.circleMarker(e.latlng, { color: 'red', radius: 8 }).addTo(map);
+            endPointDiv.innerHTML = "End Point: <br>Latitude: " + e.latlng.lat.toFixed(4) + "<br>Longitude: " + e.latlng.lng.toFixed(4);
+        }
+
+
+        function deleteWaypointMarker(markerIndex) {
+
+            map.removeLayer(waypointMarkers[markerIndex]);
+
+            // Remove the marker from the array
+            waypointMarkers.splice(markerIndex, 1);
+
+            // Remove the corresponding waypoint from the waypoints array
+            waypoints.splice(markerIndex, 1);
+
+            // Update the waypoints display
+            updateWaypointsDisplay();
+        }
+
+        function updateWaypointsDisplay() {
+            // Clear the waypoints display
+            wayPointsDiv.innerHTML = '';
+
+            // Update the display for each waypoint
+            waypoints.forEach(function(waypoint, index) {
+                var waypointDiv = document.createElement('div');
+                waypointDiv.innerHTML = 'Waypoint ' + (index + 1) + ':<br>' +
+                                         'Latitude: ' + waypoint.lat.toFixed(4) + '<br>' +
+                                         'Longitude: ' + waypoint.lng.toFixed(4) +
+                                         ' <button onclick="deleteWaypointMarker(' + index + ')">Delete</button><br><br>';
+
+                wayPointsDiv.appendChild(waypointDiv);
+            });
+        }
+
+
+        function onWayPointMapClick(e) {
+            var waypoint = e.latlng;
+
+            // Add a circle marker to the map at the waypoint location
+            var waypointMarker = L.circleMarker(waypoint, { color: 'green', radius: 8 }).addTo(map);
+
+            // Add the marker to the array
+            waypointMarkers.push(waypointMarker);
+
+            // Add the waypoint to the waypoints array
+            waypoints.push(waypoint);
+
+            // Update the waypoints display
+            updateWaypointsDisplay();
+        }
+
+
+        function drawRoute(routeData) {
+            if (routeLayer) {
+                map.removeLayer(routeLayer);
+            }
+
+            routeLayer = L.geoJSON(routeData).addTo(map);
+
+            // Calculate total time
+            var totalTime = calculateTotalTime(routeData);
+
+            totalTime = Math.floor(totalTime)
+            var h = Math.floor(totalTime / 3600);
+            var m = Math.floor((totalTime - h * 3600) / 60);
+            var s = totalTime % 60;
+
+            // Update the total time display
+            var totalTimeDiv = document.getElementById('totalTime');
+
+          totalTimeDiv.innerHTML = 'Total Time: ';
+
+            totalTimeDiv.innerHTML = 'Total Time: ';
+            if (h > 0) {
+                totalTimeDiv.innerHTML += h + 'h ';
+            }
+            if (m > 0) {
+                totalTimeDiv.innerHTML += m + 'm ';
+            }
+            totalTimeDiv.innerHTML += s + 's';
+
+
+        }
+
+        function calculateTotalTime(routeData) {
+            var duration = routeData['features'][0]['properties']['summary']['duration'];
+
+            // Convert duration to minutes (assuming it's in seconds)
+            var totalTime =  duration;
+
+
+            return totalTime;
+        }
+
+        function onFindRouteClick() {
+            // Check if start and end points are defined
+            if (!startMarker || !endMarker) {
+                alert('Please select both a start point and an end point.');
+                return; // Exit the function if start or end point is not defined
+            }
+
+
+            map.off('click', onEndPointMapClick);
+            map.off('click', onWayPointMapClick);
+            map.off('click', onStartPointMapClick);
+
+            var yourGeoJSONData = [
+                [start.lat, start.lng],
+            ];
+            waypoints.forEach(function(waypoint) {
+                yourGeoJSONData.push([waypoint.lat, waypoint.lng]);
+            });
+            yourGeoJSONData.push([end.lat, end.lng]);
+
+             fetch('/find_route', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    geojson: yourGeoJSONData
+                })
+            })
+            .then(response => response.json())
+            .then(data => drawRoute(data))
+            .catch(error => console.error('Error:', error));
+
+        }
+
+
+
+
+        startPointBtn.addEventListener('click', onStartPointClick);
+        endPointBtn.addEventListener('click', onEndPointClick);
+        addWaypointBtn.addEventListener('click', onWayPointClick)
+        findRouteBtn.addEventListener('click', onFindRouteClick)
+
+
+
+    </script>
+</body>
+</html>

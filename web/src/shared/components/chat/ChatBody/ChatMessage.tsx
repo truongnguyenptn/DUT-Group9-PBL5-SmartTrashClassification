@@ -8,7 +8,7 @@ import { isIOS, isMobile } from 'react-device-detect';
 import { DeepPartial } from '@enouvo/react-uikit';
 import DOMPurify from 'dompurify';
 import ChatMessageReply from './ChatMessageReply';
-import ConditionalWrapper from './../../common/ConditionalWrapper';
+import ConditionalWrapper from '../../common/ConditionalWrapper';
 import CommonFile from '#/shared/components/common/CommonFile';
 import { Maybe, MessageFile, ReplyMessageType } from '#/generated/schemas';
 import { getUrlsFromText, detectUrl } from '#/shared/utils/url';

@@ -32,8 +32,9 @@ import { useSectionLayoutGoogleMapVisible } from '#/shared/hooks/useRenderSectio
 
 export default function TransportationContainer() {
   const { i18n: i18nState } = useTranslation();
-  const email = getEmail();
-  const caseName = getCaseName();
+  // const email = getEmail();
+  // const caseName = getCaseName();
+  const email = "ok@gmail"
   const navigate = useNavigate();
   const [transports, setTransports] = useState<Transport[] | undefined>(
     undefined,

@@ -3,8 +3,8 @@ import type {
   PresignedUrlDto,
   PresignedUrlS3Mutation,
   PresignedUrlS3MutationVariables,
-} from './../../generated/schemas';
-import { PresignedUrlS3Document } from './../../generated/schemas';
+} from '../../generated/schemas';
+import { PresignedUrlS3Document } from '../../generated/schemas';
 
 const useAsyncQuery = () => {
   const client = useApolloClient();
