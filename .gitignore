@@ -27,4 +27,4 @@ django_server/fixtures/*.json
 /design
 /video
 /private-data
-*/web
+web
