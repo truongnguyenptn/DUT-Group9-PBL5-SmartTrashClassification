@@ -1,3 +1,0 @@
-mutation generateTrackingLink($input: GenerateTrackingLinkInputDto!) {
-  generateTrackingLink(input: $input)
-}

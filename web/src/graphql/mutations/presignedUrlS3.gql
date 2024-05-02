@@ -1,7 +1,0 @@
-mutation presignedUrlS3($presignedUrlDto: PresignedUrlDto!) {
-  presignedUrlS3(presignedUrlDto: $presignedUrlDto) {
-    pathFile
-    fileType
-    uploadUrl
-  }
-}

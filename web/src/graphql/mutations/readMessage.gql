@@ -1,9 +1,0 @@
-mutation readMessage($input: ReadMessageInputDto!) {
-  readMessage(input: $input) {
-    id
-    email
-    username
-    clientHasNewMessage
-    adminHasNewMessage
-  }
-}
