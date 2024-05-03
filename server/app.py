@@ -224,5 +224,5 @@ def find_route():
 
 
 if __name__ == '__main__':
-    gunicorn_command = "gunicorn -w 4 -b 0.0.0.0:5000 app:app"
+    gunicorn_command = "gunicorn --timeout 18000 -b 0.0.0.0:5000 app:app"
     subprocess.run(gunicorn_command, shell=True)

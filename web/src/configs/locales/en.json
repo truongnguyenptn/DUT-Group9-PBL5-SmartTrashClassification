@@ -1,0 +1,286 @@
+{
+  "appInfo": {
+    "footer": "",
+    "name": "smart Pro Web",
+    "welcomeTitle": "Welcome to smart Provider"
+  },
+  "empty": "404 Not Found",
+  "noData": "No data",
+  "sideBar": {
+    "dashboard": "Dashboard",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "smart Pro Web",
+    "description": "Log in as an smart group provider",
+    "rememberMe": "Remember me"
+  },
+  "header": {
+    "description": "For service provider"
+  },
+  "quotes": "Let’s give our customers the best experience!",
+  "country": {
+    "en": "EN",
+    "fr": "FR",
+    "es": "ES"
+  },
+  "placeholder": {
+    "enterEmail": "Enter your email",
+    "enterEmailOrPhone": "Enter your email or phone number",
+    "enterLastNameDecreased": "Enter the last name of deceased",
+    "enterPassword": "Enter password",
+    "enterFirstName": "Enter first name",
+    "enterLastName": "Enter last name",
+    "confirmPassword": "Confirm password",
+    "enterOldPassword": "Enter old password",
+    "enterNewPassword": "Enter new password",
+    "enterConfirmPassword": "Confirm new password",
+    "enterCountry": "Enter country",
+    "enterTown": "Enter town",
+    "enterAddress": "Enter address",
+    "enterPhone": "Enter phone number",
+    "enterBankName": "Enter Bank Name",
+    "exampleEmail": "Example@gmail.com",
+    "enterFullName": "Enter full name",
+    "typeMessage": "Type message",
+    "searchMessage": "Search message",
+    "startDate": "Start Date",
+    "endDate": "End Date"
+  },
+  "commonFields": {
+    "email": "Email",
+    "phone": "Phone number",
+    "password": "Password",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "confirmPassword": "Confirm Password",
+    "ID": "ID",
+    "name": "Name",
+    "status": "Status",
+    "action": "Action",
+    "civility": "Civility",
+    "country": "Country",
+    "town": "Town",
+    "dateOfBirth": "Date of birth",
+    "address": "Address",
+    "fullName": "Full name",
+    "whatsapp": "Whatsapp",
+    "dateAndTime": "Date and time",
+    "departure": "Departure",
+    "arrival": "Arrival",
+    "dateOfDeath": "Date of death",
+    "seeMore": "See more",
+    "seeLess": "See less",
+    "date": "Date"
+  },
+  "message": {
+    "successfully": "Successfully",
+    "loginSuccess": "Log in successfully"
+  },
+  "error": {
+    "pleaseTryAgain": "Please try again later!",
+    "notAvailable": "N/A",
+    "inValidAccLogin": "The account you’ve entered is incorrect. Please try again!",
+    "notSupportAudio": "Your browser does not support view audio.",
+    "notSupportVideo": "Your browser does not support view audio.",
+    "lostConnection": "No internet connection! Please check your network.",
+    "fileTypeIsNotAllowed": "File type is not allowed!",
+    "browserDoesNotSupportVideoTag": "Your browser does not support the video tag.",
+    "validFileSize": "The attachment size has been exceeded! The size limit is up to 50MB only, please check the file size before uploading.",
+    "internalServerError": "Internal Server Error",
+    "requestTimeOut": "Request Timeout Error",
+    "uploadFileError": "We encountered an error with your file or the server. Please try again later."
+  },
+  "button": {
+    "login": "Log in",
+    "logout": "Logout",
+    "backHome": "Back Home",
+    "signUp": "Sign Up",
+    "submit": "Submit",
+    "forgotPassword": "Forgot Password?",
+    "save": "Save",
+    "create": "Create",
+    "search": "Search",
+    "clear": "Clear",
+    "cancel": "Cancel",
+    "loginNow": "Login Now",
+    "edit": "Edit",
+    "view": "View",
+    "filter": "Search",
+    "close": "Close",
+    "generateLink": "Generate link",
+    "copyLink": "Copy link",
+    "trackDriver": "Track Driver",
+    "change": "Change"
+  },
+  "validateMessage": {
+    "email": "Email is invalid",
+    "required": "Please enter {{name}}",
+    "invalid": "Invalid {{name}}",
+    "whiteSpace": "{{name}} cannot be empty",
+    "uploadImage": "Can't upload more than 15 files per time"
+  },
+  "value": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "all": "All",
+    "mr": "mr",
+    "mrs": "mrs"
+  },
+  "label": {
+    "loading": "Loading",
+    "disabledSelection": "This selection is disabled or removed",
+    "items": "items"
+  },
+  "section": {
+    "title": "Section",
+    "contacts": "Contacts",
+    "contactsDescription": "Find your dedicated contacts as well as answers to your questions",
+    "caseDetail": "Case Details",
+    "caseDetailDescription": "Import, view and sign the necessary documents",
+    "formalities": "Formalities",
+    "formalitiesDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt quam massa gravida ipsum, eget.",
+    "transportation": "Transportation",
+    "transportationDescription": "Follow step by step the progress of the transport of your loved one",
+    "funeralService": "Funeral Services",
+    "funeralServiceDescription": "Follow the organization of your loved one’s funeral step by step",
+    "documents": "Documents"
+  },
+  "chat": {
+    "replyingTo": "Replying to",
+    "attachments": "Attachments",
+    "replyTo": "replied to",
+    "reply": "Reply",
+    "photoLibrary": "Photo Library",
+    "camera": "Camera",
+    "attachFiles": "Attach Files",
+    "startYourConversation": "Start your conversation",
+    "noMessageFound": "Sorry! We couldn't find any results",
+    "you": "You",
+    "yourself": "yourself",
+    "themselves": "Themselves",
+    "searchingFor": "Searching for",
+    "attachedFiles": "Attached files",
+    "today": "Today",
+    "chatWith": "Chat with"
+  },
+  "contact": {
+    "nameFirstName": "Name and first name",
+    "familyDetail": "Family Details",
+    "funeralProvider": "Funeral Provider",
+    "companyName": "Company's name",
+    "website": "Website",
+    "empowermentNumber": "Empowerment's number",
+    "civilLiabilityInsurance": "Civil liability insurance",
+    "smartAssistant": "smart Assistant",
+    "assistantName": "Assistant’s name",
+    "documents": "Documents"
+  },
+  "statusLegend": {
+    "title": "Status Legend",
+    "plan": "Planned",
+    "confirm": "Confirmed",
+    "change": "Changed",
+    "postpone": "Postponed",
+    "finish": "Finished",
+    "cancel": "Cancelled",
+    "inprogress": "In Progress"
+  },
+  "documentSections": {
+    "form": "Form",
+    "preview": "Preview",
+    "details": "Details",
+    "logistics": "Logistics",
+    "quotes": "Quotes",
+    "alerts": "Alerts",
+    "comments": "Comments",
+    "documents": "Documents",
+    "history": "History",
+    "payment": "Payment",
+    "photo": "Photo"
+  },
+  "transportation": {
+    "trackingDriver": "Tracking Driver",
+    "shareDesc": "Share this website information to track your driver's trip progress",
+    "goToLink": "Go to link",
+    "shareLink": "Share link",
+    "copyLinkSuccessfully": "Copied the link",
+    "viewDetails": "View details",
+    "driverStatus": "Driver status",
+    "tripInformation": "Trip information",
+    "changeStatus": "Change status",
+    "modalConfirmContent": "This will change driver’s status from {{preStatus}} to {{curStatus}}",
+    "modalTitle": "Change status?",
+    "successMessage": "Change status successfully!",
+    "successGenerateLinkMessage": "Generate link successfully",
+    "showCurrentStatus": "Your current status is {{status}}",
+    "statusFromTo": "{{preStatus}} is changed to {{curStatus}}"
+  },
+  "fileGroup": {
+    "title": "Files gallery",
+    "media": "Media",
+    "links": "Links",
+    "files": "Files",
+    "seeMore": "See more",
+    "noMediaData": "No media found",
+    "noLinkData": "No links found",
+    "noFileData": "No files found",
+    "uploaded": "uploaded"
+  },
+  "rangePicker": {
+    "closeMonthSelector": "Close Month Selector",
+    "closeYearSelector": "Close Year Selector",
+    "defaultPlaceholder": "Select...",
+    "from": "from",
+    "jan": "January",
+    "feb": "February",
+    "mar": "March",
+    "apr": "April",
+    "may": "May",
+    "jun": "June",
+    "jul": "July",
+    "aug": "August",
+    "sep": "September",
+    "oct": "October",
+    "nov": "November",
+    "dec": "December",
+    "nextMonth": "Next Month",
+    "openMonthSelector": "Open Month Selector",
+    "openYearSelector": "Open Year Selector",
+    "previousMonth": "Previous Month",
+    "to": "to",
+    "weekDays": {
+      "mon": {
+        "fullName": "Monday",
+        "shortName": "M"
+      },
+      "tues": {
+        "fullName": "Tuesday",
+        "shortName": "T"
+      },
+      "wed": {
+        "fullName": "Wednesday",
+        "shortName": "W"
+      },
+      "thur": {
+        "fullName": "Thursday",
+        "shortName": "T"
+      },
+      "fri": {
+        "fullName": "Friday",
+        "shortName": "F"
+      },
+      "sat": {
+        "fullName": "Saturday",
+        "shortName": "S"
+      },
+      "sun": {
+        "fullName": "Sunday",
+        "shortName": "S"
+      }
+    }
+  }
+}

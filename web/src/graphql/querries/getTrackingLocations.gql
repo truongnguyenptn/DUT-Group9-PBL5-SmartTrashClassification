@@ -1,0 +1,9 @@
+query getTrackingLocations($queryParams: TrackingLocationQueryFilterDto!, $trackingDriverId: String!) {
+  getTrackingLocations(queryParams: $queryParams, trackingDriverId: $trackingDriverId) {
+    items {
+      id
+      longitude
+      latitude
+    }
+  }
+}
