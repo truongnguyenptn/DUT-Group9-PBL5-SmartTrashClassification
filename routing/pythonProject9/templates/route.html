@@ -258,6 +258,40 @@
 
         }
 
+                function fetchAllPoints() {
+            fetch('http://localhost:5050/bin/all')
+            .then(response => response.json())
+            .then(data => {
+                // Process the fetched data here
+                console.log(data); // For example, log the data to the console
+            })
+            .catch(error => console.error('Error fetching points:', error));
+        }
+
+
+        function useCurrentLocationAsStart() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            start = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            // Display start point on the map
+            if (startMarker) {
+                map.removeLayer(startMarker);
+            }
+            startMarker = L.circleMarker([start.lat, start.lng], { color: 'blue', radius: 8 }).addTo(map);
+            startPointDiv.innerHTML = "Start Point: <br>Latitude: " + start.lat.toFixed(4) + "<br>Longitude: " + start.lng.toFixed(4);
+        }, error => {
+            console.error('Error getting current location:', error);
+            alert('Error getting current location. Please make sure location services are enabled.');
+        });
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+        alert('Geolocation is not supported by this browser.');
+    }
+}
 
 
 
