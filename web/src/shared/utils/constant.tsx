@@ -103,7 +103,7 @@ export const PATH_URL = {
   documents: '/section/documents',
   formalities: '/section/formalities',
   funeralService: '/section/funeral-service',
-  home: '/',
+  home: '/section/contacts',
   login: '/login',
   section: '/section',
   transportation: '/section/transportation',

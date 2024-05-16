@@ -28,3 +28,4 @@ django_server/fixtures/*.json
 /video
 /private-data
 redfish/*
+web/node_modules

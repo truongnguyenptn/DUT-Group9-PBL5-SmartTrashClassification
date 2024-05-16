@@ -15,7 +15,7 @@ RUN apt-get update \
 # Upgrade pip and install Python dependencies
 RUN pip3 install -r requirements.txt
 # Expose the port that your Flask app runs on
-EXPOSE 5000
+EXPOSE 5050
 
 # Set the default environment variable
 ENV NAME World

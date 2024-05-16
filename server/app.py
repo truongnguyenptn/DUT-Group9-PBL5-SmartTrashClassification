@@ -5,9 +5,14 @@ import tensorflow as tf
 from openrouteservice import client
 from flask_swagger_ui import get_swaggerui_blueprint
 from flasgger import Swagger
+from pymongo import MongoClient
+
 import subprocess
 app = Flask(__name__)
 swagger = Swagger(app)
+client = MongoClient('mongodb+srv://truongnguyenptn:dut-iot@cluster0.qb6iquw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+db = client['trash_bin_db']
+collection = db['trash_bins']
 # Define Swagger UI blueprint
 # SWAGGER_URL = '/api/docs'  # URL for accessing Swagger UI (usually /swagger)
 # API_URL = '/swagger.json'   # URL for accessing the API definition
@@ -19,6 +24,9 @@ swagger = Swagger(app)
 #     }
 # )
 # app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+
+
 def prediction(img,model):
 	#rescaling image
 	img = img/255
@@ -30,7 +38,7 @@ def prediction(img,model):
 	tensor_img = tf.image.resize(tensor_img,[224,224])
 	tensor_img = tensor_img[tf.newaxis,...,]
 	print("index",model.predict(tensor_img).argmax())
-	class_names = ['CD', 'batlua', 'book', 'bowlsanddishes', 'bucket', 'cans', 'cardboard', 'chattayrua', 'coffee', 'daulocthuocla', 'diapers', 'egg', 'food', 'fruit', 'glass trash', 'household', 'khautrang', 'milk_carton', 'nylon', 'packaging', 'pants', 'paper', 'paper_box', 'pen', 'pin', 'plastic_bottle', 'shirt', 'shoes', 'spray', 'tabletcapsule', 'teabag', 'thietbidientu', 'tissues', 'vogasmini']
+	class_names = ['CD', 'batlua', 'book', 'bowlsanddishes', 'bucket', 'cans', 'cardboard', 'chattayrua', 'coffee', 'daulocthuocla', 'diapers', 'egg', 'food', 'fruit', 'glass trash', 'household', 'khautrang', 'milk_carton', 'nylon', 'pants', 'paper', 'paper_box', 'pen', 'pin', 'plastic_bottle', 'shirt', 'shoes', 'tabletcapsule', 'thietbidientu', 'vogasmini']
 	
 	#predicting image
 	return class_names[model.predict(tensor_img).argmax()]
@@ -101,7 +109,7 @@ def submit():
 
 
 		#loading model net
-		model_path = './saved_models/TrashClassification_Model_Transfer4.h5'
+		model_path = './saved_models/Model.h5'
 		# model = tf.keras.models.load_model(model_path)
 		model = tf.keras.models.load_model(model_path)
   
@@ -222,7 +230,97 @@ def find_route():
     # print(response)
     return response
 
+@app.route('/bin/update', methods=['POST'])
+def update_bin():
+    """
+    Update Trash Bin
+    ---
+    parameters:
+      - in: body
+        name: body
+        required: true
+        description: JSON object containing trash bin information
+        schema:
+          type: object
+          properties:
+            lat:
+              type: number
+              format: float
+              description: Latitude of the trash bin
+            lng:
+              type: number
+              format: float
+              description: Longitude of the trash bin
+            status:
+              type: string
+              description: Status of the trash bin
+            id:
+              type: string
+              description: ID of the trash bin
+    responses:
+      200:
+        description: Bin updated successfully
+    """
+    data = request.json
+    print(data)
+
+    lat = data.get('lat')
+    lng = data.get('lng')
+    status = data.get('status')
+    _id = data.get('id')
+
+    # Update or insert document based on provided _id
+    result = collection.update_one(
+        {'_id': _id},
+        {'$set': {'lat': lat, 'lng': lng, 'status': status}},
+        upsert=True
+    )
+
+    return jsonify({'message': 'Bin updated successfully'}), 200
+
+@app.route('/bin/get', methods=['GET'])
+def get_bins():
+    """
+    Get All Trash Bins
+    ---
+    responses:
+      200:
+        description: List of all trash bins
+      404:
+        description: No bins found
+    """
+    bins = list(collection.find({}))
+    if bins:
+        return jsonify(bins), 200
+    else:
+        return jsonify({'message': 'No bins found'}), 404
+
+@app.route('/bin/all', methods=['GET'])
+def get_bin():
+    """
+    Get Trash Bin by ID
+    ---
+    parameters:
+      - name: id
+        in: query
+        type: string
+        required: true
+        description: ID of the trash bin
+    responses:
+      200:
+        description: Bin information retrieved successfully
+      404:
+        description: Bin not found
+    """
+    bin_id = request.args.get('id')
+    bin_info = collection.find_one({'_id': bin_id})
+    if bin_info:
+        return jsonify(bin_info), 200
+    else:
+        return jsonify({'message': 'Bin not found'}), 404
+
+
 
 if __name__ == '__main__':
-    gunicorn_command = "gunicorn --timeout 18000 -b 0.0.0.0:5000 app:app"
+    gunicorn_command = "gunicorn --timeout 18000 -b 0.0.0.0:5050 app:app"
     subprocess.run(gunicorn_command, shell=True)

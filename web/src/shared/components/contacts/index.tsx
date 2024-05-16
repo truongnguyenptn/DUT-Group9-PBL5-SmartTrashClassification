@@ -6,6 +6,8 @@ import ContactFamilyDetail from './ContactFamilyDetail';
 import { useContactDataVar } from '#/shared/hooks/useContactDataVar';
 import Map from '../common/Map';
 import { useState } from 'react';
+import {LeafletMap} from '../map';
+import { GetContactResponse } from '#/shared/utils/type';
 
 export function ContactContainer() {
   const [map, setMap] = useState<google.maps.Map>();
@@ -73,14 +75,7 @@ export function ContactContainer() {
           {/* <ContactFamilyDetail familyDetails={familyDetails} /> */}
           <ContactFuneralProvider funeralProvider={funeralProvider} />
           {/* <ContactSmartCityAssistant SmartCityAssistant={SmartCityAssistant} /> */}
-          <iframe
-        src="http://127.0.0.1:8000/route"
-        title="Route Page"
-        width="100%"
-        height="500px"
-        frameBorder="0"
-        scrolling="auto"
-      ></iframe>
+        <LeafletMap />
         </div>
       </div>
     </SectionLayout>
