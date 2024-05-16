@@ -60,6 +60,7 @@
     "tailwind-merge": "^1.9.0",
     "tippy.js": "^6.3.7",
     "use-places-autocomplete": "^4.0.0",
+    "vite-plugin-checker": "^0.6.4",
     "waait": "^1.0.5"
   },
   "devDependencies": {

@@ -9,7 +9,7 @@ import svgr from 'vite-plugin-svgr';
 import pages from 'vite-plugin-pages';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import { defineConfig } from 'vitest/config';
-
+import checker from 'vite-plugin-checker'; 
 const themeVariables = lessToJS(
   fs.readFileSync(
     path.resolve(__dirname, './src/configs/theme/index.less'),
@@ -55,6 +55,7 @@ export default ({ mode }: { mode: string }) => {
         },
         include: './build',
       }),
+      checker({ typescript: false })
     ],
     css: {
       preprocessorOptions: {
