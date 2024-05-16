@@ -7,7 +7,7 @@ const Routing = ({ map }) => {
   const mapInstance = useMap();
 
   useEffect(() => {
-    const leafletElement = L..control({
+    const leafletElement = L.Map.control({
       waypoints: [L.latLng(27.67, 85.316), L.latLng(27.68, 85.321)]
     }).addTo(mapInstance);
 
