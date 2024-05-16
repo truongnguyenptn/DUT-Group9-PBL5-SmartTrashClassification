@@ -5,7 +5,7 @@ import { PATH_URL } from '#/shared/utils/constant';
 import useTypeSafeTranslation from '#/shared/hooks/useTypeSafeTranslation';
 
 import WavePNG from '#/assets/images/wave.png';
-import backgroundDesktop from '#/assets/images/background-desktop.jped';
+import backgroundDesktop from '#/assets/images/background-desktop.jpeg';
 
 interface LayoutDesktopProps {
   children?: React.ReactNode;
