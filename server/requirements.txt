@@ -8,3 +8,4 @@ openrouteservice
 gunicorn
 pymongo
 tensorflow
+flask_cors

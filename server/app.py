@@ -6,12 +6,14 @@ from openrouteservice import client
 from flask_swagger_ui import get_swaggerui_blueprint
 from flasgger import Swagger
 from pymongo import MongoClient
+from flask_cors import CORS
 
 import subprocess
 app = Flask(__name__)
+CORS(app) 
 swagger = Swagger(app)
-client = MongoClient('mongodb+srv://truongnguyenptn:dut-iot@cluster0.qb6iquw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-db = client['trash_bin_db']
+mongoClient = MongoClient('mongodb+srv://truongnguyenptn:dut-iot@cluster0.qb6iquw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+db = mongoClient['trash_bin_db']
 collection = db['trash_bins']
 # Define Swagger UI blueprint
 # SWAGGER_URL = '/api/docs'  # URL for accessing Swagger UI (usually /swagger)
@@ -148,7 +150,7 @@ def find_route():
     #       properties:
     #         // Define your response schema here
     """
-    json_data = request.json()
+    json_data = request.json
     coordinates = json_data.get('geojson')
     reversed_coordinates = [[lng, lat] for lat, lng in coordinates]
     print(reversed_coordinates)
@@ -278,7 +280,7 @@ def update_bin():
 
     return jsonify({'message': 'Bin updated successfully'}), 200
 
-@app.route('/bin/get', methods=['GET'])
+@app.route('/bins', methods=['GET'])
 def get_bins():
     """
     Get All Trash Bins
@@ -295,7 +297,7 @@ def get_bins():
     else:
         return jsonify({'message': 'No bins found'}), 404
 
-@app.route('/bin/all', methods=['GET'])
+@app.route('/bin', methods=['GET'])
 def get_bin():
     """
     Get Trash Bin by ID
@@ -319,7 +321,9 @@ def get_bin():
     else:
         return jsonify({'message': 'Bin not found'}), 404
 
-
+@app.route('/route', methods=['GET'])
+def route_page():
+    return render_template('route.html')
 
 if __name__ == '__main__':
     gunicorn_command = "gunicorn --timeout 18000 -b 0.0.0.0:5050 app:app"
