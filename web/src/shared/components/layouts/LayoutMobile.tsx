@@ -6,7 +6,7 @@ import Header from './Header';
 import { PATH_URL } from '#/shared/utils/constant';
 import useTypeSafeTranslation from '#/shared/hooks/useTypeSafeTranslation';
 
-import backgroundMobile from '#/assets/images/background-mobile.png';
+import backgroundMobile from '#/assets/images/background-mobile.jpeg';
 import WavePNG from '#/assets/images/wave.png';
 
 interface LayoutMobileProps {
