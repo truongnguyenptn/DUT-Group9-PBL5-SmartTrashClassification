@@ -112,7 +112,6 @@
     "vite": "^4.0.4",
     "vite-plugin-antd-dayjs": "^1.0.0",
     "vite-plugin-pages": "^0.28.0",
-    "vite-plugin-sentry": "^1.1.7",
     "vite-plugin-svgr": "^2.4.0",
     "vitest": "^0.29.7",
     "vitest-preview": "^0.0.1"

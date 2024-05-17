@@ -1,10 +1,9 @@
-import type { FallbackRender } from '@sentry/react';
 import { Button, Result } from 'antd';
 
 export default function ErrorFallback({
   error,
   resetError,
-}: Parameters<FallbackRender>[0]) {
+}: any) {
   const isNewVersionError = error.message.match(
     /Failed to fetch dynamically imported module/g,
   );

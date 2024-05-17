@@ -3,7 +3,6 @@ import { setContext } from '@apollo/client/link/context';
 import { HttpLink } from '@apollo/client/link/http';
 import { omitDeep, Dictionary } from '@enouvo/react-uikit';
 import { onError } from 'apollo-link-error';
-import * as Sentry from '@sentry/react';
 import { cache } from './cache';
 import { Platform } from '#/shared/utils/type';
 import { getToken } from '#/shared/utils/localStorage';
@@ -36,14 +35,10 @@ const errorHandler = onError(({ graphQLErrors, networkError }) => {
         (extensions as Dictionary<string> | undefined)?.code ===
         'BAD_USER_INPUT'
       ) {
-        Sentry.captureMessage(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-        );
       }
     });
   }
   if (networkError && 'statusCode' in networkError) {
-    Sentry.captureException(networkError);
   }
 }) as unknown as ApolloLink;
 

@@ -4,7 +4,6 @@ import enUS from 'antd/es/locale/en_US';
 import esES from 'antd/es/locale/es_ES';
 import type { DeepPartial } from '@enouvo/react-uikit';
 import type { Dayjs } from 'dayjs';
-import * as Sentry from '@sentry/react';
 import { UploadFile } from 'antd';
 import dayjs from 'dayjs';
 import { FC, SVGProps } from 'react';
@@ -195,7 +194,6 @@ export const logger = (error: unknown | string) => {
     return `Internal Server Error. Please try later!`;
   })();
 
-  Sentry.captureMessage(message);
 };
 
 export const getColorByStatus = (statusId: number) => {

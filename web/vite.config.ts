@@ -7,7 +7,6 @@ import viteAntdDayjs from 'vite-plugin-antd-dayjs';
 import react from '@vitejs/plugin-react-swc';
 import svgr from 'vite-plugin-svgr';
 import pages from 'vite-plugin-pages';
-import { sentryVitePlugin } from '@sentry/vite-plugin';
 import { defineConfig } from 'vitest/config';
 import checker from 'vite-plugin-checker'; 
 const themeVariables = lessToJS(
@@ -45,16 +44,6 @@ export default ({ mode }: { mode: string }) => {
         importMode: 'async',
       }),
       viteAntdDayjs(),
-      sentryVitePlugin({
-        url: process.env.VITE_SENTRY_URL,
-        authToken: process.env.VITE_SENTRY_AUTH_TOKEN,
-        org: process.env.VITE_SENTRY_ORG,
-        project: process.env.VITE_SENTRY_PROJECT,
-        deploy: {
-          env: 'staging',
-        },
-        include: './build',
-      }),
       checker({ typescript: false })
     ],
     css: {
