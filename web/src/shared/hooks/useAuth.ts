@@ -18,9 +18,12 @@ import {
   clearProviderCompanyName,
   getContactData,
   clearLoginInformation,
+  setToken,
+  clearToken,
 } from '#/shared/utils/localStorage';
 import { scrollToTop } from '#/shared/utils/tool';
 import { PATH_URL } from '#/shared/utils/constant';
+import request from '#/api/request';
 
 export function useAuth() {
   const navigate = useNavigate();
@@ -57,20 +60,14 @@ export function useAuth() {
   return {
     isError,
     isLoading,
-    login: (email: string, name: string, rememberMe: boolean) => {
-      // getContact({ email: email.toLowerCase(), name });
-
-      // const contactData = getContactData();
-
-      // if (contactData) {
-      //   update(JSON.parse(contactData));
-      // }
-
-      // if (rememberMe) {
-      //   setLoginInformation({ email, name, rememberMe });
-      // } else {
-      //   clearLoginInformation();
-      // }
+    login: async (username: string, password: string, rememberMe: boolean) => {
+      const response = await request.post(`/login`, {
+        username,
+        password
+      });
+      if (response.data.access_token) {
+        setToken(JSON.stringify(response.data));
+      }
 
       setProviderCompanyName("company");
       setName("smartcity");
@@ -86,6 +83,7 @@ export function useAuth() {
       clearProviderCompanyName();
       clearContactData();
       clearCaseName();
+      clearToken();
 
       navigate(PATH_URL.login);
     },

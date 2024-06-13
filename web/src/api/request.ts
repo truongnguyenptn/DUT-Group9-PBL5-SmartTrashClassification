@@ -6,10 +6,7 @@ import { ErrorCode } from '#/shared/utils/type/common';
 
 const TIME_OUT = 60000;
 
-export const BASE_URL =
-  window.location.host === 'localhost'
-    ? 'https://mock-endpoint.com'
-    : import.meta.env.VITE_BASE_URL;
+export const BASE_URL = 'http://localhost:5050//'
 
 const baseApiConfig = {
   baseURL: BASE_URL,

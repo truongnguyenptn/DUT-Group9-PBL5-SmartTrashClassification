@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ChatModal from '../chat/ChatModal';
 import LanguageSelector from '../selectors/LanguageSelector';
 import NavBar from './NavBar';
-import { getEmail } from '#/shared/utils/localStorage';
+import { getEmail, getToken } from '#/shared/utils/localStorage';
 import Image from '#/shared/components/common/Image';
 import { setLocale } from '#/shared/utils/locale';
 import {
@@ -86,7 +86,7 @@ export default function Header() {
               <CallFilledSVG className="h-5 w-5" />
             </div>
 
-            {getEmail() && !pathname.includes(PATH_URL.login) && (
+            {getToken() && !pathname.includes(PATH_URL.login) && (
               <div
                 className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-primary text-white"
                 onClick={signOut}

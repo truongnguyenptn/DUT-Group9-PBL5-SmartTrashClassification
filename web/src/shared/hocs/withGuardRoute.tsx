@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getEmail } from '#/shared/utils/localStorage';
+import { getEmail, getToken } from '#/shared/utils/localStorage';
 import { PATH_URL } from '#/shared/utils/constant';
 
 function withGuardRoute<T extends object>(
@@ -9,19 +9,19 @@ function withGuardRoute<T extends object>(
 ) {
   return function (props: T) {
     const navigate = useNavigate();
-    // useEffect(() => {
-    //   const email = getEmail();
-    //   if (!email && isPrivate) {
-    //     navigate(PATH_URL.login, {
-    //       replace: true,
-    //     });
-    //   }
-    //   if (email && !isPrivate) {
-    //     navigate(PATH_URL.home, {
-    //       replace: true,
-    //     });
-    //   }
-    // }, [navigate]);
+    useEffect(() => {
+      const token = getToken();
+      if (!token && isPrivate) {
+        navigate(PATH_URL.login, {
+          replace: true,
+        });
+      }
+      if (token && !isPrivate) {
+        navigate(PATH_URL.home, {
+          replace: true,
+        });
+      }
+    }, [navigate]);
 
     if (!navigator.onLine) location.reload();
     return <WrappedComponent {...props} />;

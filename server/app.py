@@ -4,17 +4,28 @@ import cv2
 import tensorflow as tf
 from openrouteservice import client
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flasgger import Swagger
 from pymongo import MongoClient
 from flask_cors import CORS
+from flask_bcrypt import Bcrypt
 
 import subprocess
 app = Flask(__name__)
+
+
+
 CORS(app) 
 swagger = Swagger(app)
+
+app.config['JWT_SECRET_KEY'] = 'pbl-iot-dut' 
+jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
 mongoClient = MongoClient('mongodb+srv://truongnguyenptn:dut-iot@cluster0.qb6iquw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+
 db = mongoClient['trash_bin_db']
 collection = db['trash_bins']
+users_collection = db['users']
 # Define Swagger UI blueprint
 # SWAGGER_URL = '/api/docs'  # URL for accessing Swagger UI (usually /swagger)
 # API_URL = '/swagger.json'   # URL for accessing the API definition
@@ -45,6 +56,172 @@ def prediction(img,model):
 	#predicting image
 	return class_names[model.predict(tensor_img).argmax()]
 
+
+@app.route('/register', methods=['POST'])
+def register():
+    """
+    User Registration
+    ---
+    tags:
+      - Auth
+    parameters:
+      - in: body
+        name: body
+        description: JSON object containing user information
+        required: true
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+              example: "user1"
+            password:
+              type: string
+              example: "password123"
+            name:
+              type: string
+              example: "John Doe"
+            sdt:
+              type: string
+              example: "123456789"
+            gmail:
+              type: string
+              example: "user1@gmail.com"
+    responses:
+      201:
+        description: User registered successfully
+      400:
+        description: Invalid input
+    """
+    data = request.get_json()
+    username = data['username']
+    password = data['password']
+    name = data['name']
+    sdt = data['sdt']
+    gmail = data['gmail']
+
+    if users_collection.find_one({'username': username}):
+        return jsonify(message="Username already exists"), 400
+    if users_collection.find_one({'gmail': gmail}):
+        return jsonify(message="Email already exists"), 400
+
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    user = {
+        'username': username,
+        'password': hashed_password,
+        'name': name,
+        'sdt': sdt,
+        'gmail': gmail
+    }
+    users_collection.insert_one(user)
+    return jsonify(message="User registered successfully"), 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    """
+    User Login
+    ---
+    tags:
+      - Auth
+    parameters:
+      - in: body
+        name: body
+        description: JSON object containing username and password
+        required: true
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+              example: "user1"
+            password:
+              type: string
+              example: "password123"
+    responses:
+      200:
+        description: Login successful
+        schema:
+          type: object
+          properties:
+            access_token:
+              type: string
+              example: "your_jwt_token"
+            user_info:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "user1"
+                name:
+                  type: string
+                  example: "John Doe"
+                sdt:
+                  type: string
+                  example: "123456789"
+                gmail:
+                  type: string
+                  example: "user1@gmail.com"
+      401:
+        description: Invalid credentials
+    """
+    data = request.get_json()
+    username = data['username']
+    password = data['password']
+    user = users_collection.find_one({'username': username})
+    if user and bcrypt.check_password_hash(user['password'], password):
+        access_token = create_access_token(identity={'username': username})
+        user_info = {
+            'username': user['username'],
+            'name': user['name'],
+            'sdt': user['sdt'],
+            'gmail': user['gmail']
+        }
+        return jsonify(access_token=access_token, user_info=user_info), 200
+    else:
+        return jsonify(message="Invalid credentials"), 401
+  
+@app.route('/getMe', methods=['GET'])
+@jwt_required()
+def get_me():
+    """
+    Get Current User
+    ---
+    tags:
+      - Auth
+    responses:
+      200:
+        description: Successful response
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+              example: "user1"
+            name:
+              type: string
+              example: "John Doe"
+            sdt:
+              type: string
+              example: "123456789"
+            gmail:
+              type: string
+              example: "user1@gmail.com"
+      401:
+        description: Invalid token
+    """
+    current_user = get_jwt_identity()
+    user = users_collection.find_one({'username': current_user['username']})
+    if user:
+        user_info = {
+            'username': user['username'],
+            'name': user['name'],
+            'sdt': user['sdt'],
+            'gmail': user['gmail']
+        }
+        return jsonify(user_info), 200
+    else:
+        return jsonify(message="User not found"), 404
+    
 @app.route('/',methods=['GET'])
 def index_page():
 	return render_template('index.html')

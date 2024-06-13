@@ -12,7 +12,7 @@
   },
   "login": {
     "title": "smart Pro Web",
-    "description": "Log in as an smart group provider",
+    "description": "Log in as an smart group city staff",
     "rememberMe": "Remember me"
   },
   "header": {
@@ -25,7 +25,7 @@
     "es": "ES"
   },
   "placeholder": {
-    "enterEmail": "Enter your email",
+    "enterUsername": "Enter your username",
     "enterEmailOrPhone": "Enter your email or phone number",
     "enterLastNameDecreased": "Enter the last name of deceased",
     "enterPassword": "Enter password",
@@ -48,7 +48,7 @@
     "endDate": "End Date"
   },
   "commonFields": {
-    "email": "Email",
+    "username": "Username",
     "phone": "Phone number",
     "password": "Password",
     "oldPassword": "Old password",

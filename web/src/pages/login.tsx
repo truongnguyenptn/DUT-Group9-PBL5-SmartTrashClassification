@@ -8,8 +8,8 @@ import { useAuth } from '#/shared/hooks/useAuth';
 import Layout from '#/shared/components/layouts/Layout';
 
 export interface LoginFormValues {
-  email: string;
-  name: string;
+  username: string;
+  password: string;
   rememberMe?: boolean;
 }
 
@@ -24,55 +24,55 @@ function Login() {
         <Form<LoginFormValues>
           className="z-10 w-[30.5rem] rounded-2xl bg-white px-8 py-10 sm:fixed sm:bottom-0 sm:h-[29rem] sm:w-full sm:rounded-b-none sm:rounded-t-2xl sm:px-6 sm:py-8"
           initialValues={{
-            email: informationLogin?.email || '',
-            name: informationLogin?.name || '',
+            username: informationLogin?.username || '',
+            password: informationLogin?.password || '',
             rememberMe: informationLogin?.rememberMe,
           }}
           layout="vertical"
-          onFinish={({ email, name, rememberMe = false }) => {
-            login(email, name, rememberMe);
+          onFinish={({ username, password, rememberMe = false }) => {
+            login(username, password, rememberMe);
           }}
           scrollToFirstError
         >
           <div className="mb-6 flex flex-col gap-y-2">
-            <Image className="h-12 w-36" preview={false} src={Logo} />
+            <Typography.Title>Smart city</Typography.Title>
             <Typography.Text className="text-grey-primary-500">
               {t('login.description')}
             </Typography.Text>
           </div>
 
           <Form.Item
-            label={t('commonFields.email')}
-            name="email"
+            label={t('commonFields.username')}
+            name="username"
             rules={[
               {
                 message: t('validateMessage.required', {
-                  name: t('commonFields.email'),
+                  name: t('commonFields.username'),
                 }),
                 required: true,
               },
               {
                 message: t('validateMessage.whiteSpace', {
-                  name: t('commonFields.email'),
+                  name: t('commonFields.password'),
                 }),
                 whitespace: true,
               },
               {
                 message: t('validateMessage.invalid', {
-                  name: t('commonFields.email'),
+                  name: t('commonFields.username'),
                 }),
-                type: 'email',
+                type: 'string',
               },
             ]}
             validateFirst
           >
-            <Input placeholder={t('placeholder.enterEmail')} />
+            <Input placeholder={t('placeholder.enterUsername')} />
           </Form.Item>
 
           <Form.Item
             className="mb-6"
-            label={t('commonFields.name')}
-            name="name"
+            label={t('commonFields.password')}
+            name="password"
             rules={[
               {
                 message: t('validateMessage.required', {
@@ -88,7 +88,7 @@ function Login() {
               },
             ]}
           >
-            <Input placeholder={t('placeholder.enterLastNameDecreased')} />
+            <Input placeholder={t('placeholder.enterPassword')} />
           </Form.Item>
 
           <Form.Item name="rememberMe" valuePropName="checked">
