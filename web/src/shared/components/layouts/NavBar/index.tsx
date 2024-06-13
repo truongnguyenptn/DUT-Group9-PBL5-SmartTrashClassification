@@ -5,7 +5,31 @@ import { SectionId } from '#/shared/utils/type';
 import { useContactDataVar } from '#/shared/hooks/useContactDataVar';
 
 export default function NavBar() {
-
+  const sections = 
+  [
+   {
+    to: '/home',
+    // icon?: ;
+    title: 'Home',
+    description: 'Home',
+    id: SectionId.Contacts
+   },
+   {
+    to: '/information',
+    // icon?: ;
+    title: 'Home',
+    description: 'Home',
+    id: SectionId.Contacts
+   },
+   {
+    to: '/bins',
+    // icon?: ;
+    title: 'Home',
+    description: 'Home',
+    id: SectionId.Contacts
+   }
+   
+  ]
 
   return (
     <div className="bg-white shadow-sm">

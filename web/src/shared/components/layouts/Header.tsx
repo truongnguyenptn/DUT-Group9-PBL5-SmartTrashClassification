@@ -86,7 +86,7 @@ export default function Header() {
               <CallFilledSVG className="h-5 w-5" />
             </div>
 
-            {!!getEmail() && !pathname.includes(PATH_URL.login) && (
+            {getEmail() && !pathname.includes(PATH_URL.login) && (
               <div
                 className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-primary text-white"
                 onClick={signOut}
@@ -98,7 +98,7 @@ export default function Header() {
         </div>
       </div>
 
-      {!!getEmail() && !pathname.includes(PATH_URL.login) && <NavBar />}
+      {getEmail() && <NavBar />}
 
       <ChatContextProvider>
         <ChatModal forceRender />

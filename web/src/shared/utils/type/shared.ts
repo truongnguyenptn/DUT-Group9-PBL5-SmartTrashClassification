@@ -10,8 +10,8 @@ export enum Platform {
 export interface Section {
   to?: string;
   icon?: JSX.Element;
-  title?: TranslationKeys;
-  description?: TranslationKeys;
+  title?: string;
+  description?: string;
   id: SectionId | keyof Display;
 }
 
