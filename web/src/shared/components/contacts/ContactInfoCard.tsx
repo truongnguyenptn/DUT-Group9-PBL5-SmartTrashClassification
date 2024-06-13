@@ -72,27 +72,6 @@ export function ContactInfoCard({
                   : 'N/A'}
               </Typography.Text>
             </Tooltip>
-
-            <Tooltip
-              className="flex items-center space-x-3 text-sm"
-              placement="topLeft"
-              title={t('commonFields.dateOfDeath')}
-              transitionName=""
-            >
-              <DiedOutlineSVG
-                className="text-grey-heavy"
-                height={18}
-                width={18}
-              />
-              <Typography.Text
-                className="min-w-[5.125rem] text-grey"
-                data-testid="deceased-death-date"
-              >
-                {defunctInformation.dead_date
-                  ? formatDate(defunctInformation.dead_date, DATE_FORMAT)
-                  : 'N/A'}
-              </Typography.Text>
-            </Tooltip>
           </div>
         </div>
       </div>

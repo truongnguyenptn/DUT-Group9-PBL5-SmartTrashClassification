@@ -1,19 +1,18 @@
-import { TranslationKeys } from '#/generated/translationKeys';
 
 const PREFIX_SECTION = '/section';
 
 interface PathProps {
   headerClass: string;
   path: string;
-  title: TranslationKeys;
+  title: string;
   statusLegendVisible?: boolean;
 }
 
 export const PATHS: Record<string, PathProps> = {
-  ['contacts']: {
+  ['HOM']: {
     headerClass: 'bg-gray-100',
-    path: `${PREFIX_SECTION}/contacts`,
-    title: 'section.contacts',
+    path: `home`,
+    title: 'Home',
   },
   ['documents']: {
     headerClass: 'bg-white',

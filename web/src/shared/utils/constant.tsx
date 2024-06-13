@@ -99,13 +99,13 @@ export const IS_XS_SCREEN = window.innerWidth <= 576;
 export const IS_MD_SCREEN = window.innerWidth <= 768;
 
 export const PATH_URL = {
-  contact: 'section/contacts',
+  home: '/section/home',
   documents: '/section/documents',
   formalities: '/section/formalities',
   funeralService: '/section/funeral-service',
-  home: '/section/contacts',
   login: '/login',
   section: '/section',
+  bins: '/section/bins',
   transportation: '/section/transportation',
 };
 

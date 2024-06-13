@@ -22,20 +22,18 @@ export default function Sidebar({ isEmpty }: SidebarProps) {
     <>
       <div
         className={twMerge(
-          'hidden justify-between px-2 pt-6 pb-5 md:flex md:pb-4',
-          PATHS[pathName ?? ''].headerClass,
+          'hidden justify-between px-2 pb-5 pt-6 md:flex md:pb-4',
+          // PATHS[pathName ?? ''].headerClass,
         )}
       >
         <Typography.Title className="mb-0 text-2xl font-semibold text-grey md:pl-2">
-          {t(PATHS[pathName ?? ''].title)}
+          {/* {t(PATHS[pathName ?? ''].title)} */}
         </Typography.Title>
 
         <div className="flex">
-          {PATHS[pathName || ''].statusLegendVisible && !isEmpty && (
-            <div className="flex h-8 w-10 items-center justify-center">
-              <StatusLegend />
-            </div>
-          )}
+          <div className="flex h-8 w-10 items-center justify-center">
+            <StatusLegend />
+          </div>
 
           <CloseOutlined
             className="flex h-8 w-8 items-center justify-center"
@@ -52,11 +50,9 @@ export default function Sidebar({ isEmpty }: SidebarProps) {
           <CloseOutlined />
         </div>
 
-        {PATHS[pathName || ''].statusLegendVisible && !isEmpty && (
-          <div className="absolute -left-5 top-[1.563rem] z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white shadow-md">
-            <StatusLegend />
-          </div>
-        )}
+        <div className="absolute -left-5 top-[1.563rem] z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white shadow-md">
+          <StatusLegend />
+        </div>
       </div>
     </>
   );

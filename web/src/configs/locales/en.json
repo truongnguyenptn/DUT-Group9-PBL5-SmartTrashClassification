@@ -48,6 +48,7 @@
     "endDate": "End Date"
   },
   "commonFields": {
+    "email": "Email",
     "username": "Username",
     "phone": "Phone number",
     "password": "Password",

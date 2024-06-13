@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && rimraf build/**/*.js.map",
+    "build": "tsc && vite build && vite build && rimraf build/**/*.js.map",
     "start": "vite preview --port 3000",
     "check-types": "tsc --noEmit --pretty",
     "check-types:watch": "tsc --noEmit --watch",

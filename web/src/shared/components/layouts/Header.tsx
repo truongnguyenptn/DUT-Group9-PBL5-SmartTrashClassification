@@ -28,7 +28,7 @@ export default function Header() {
   const { pathname } = useLocation();
   const { i18n } = useTranslation();
   const { signOut } = useAuth();
-  const email = getEmail();
+  const token = getToken();
 
   const onChangeLanguage = (value: string) => {
     i18n.changeLanguage(value || 'en');
@@ -55,7 +55,7 @@ export default function Header() {
     <div className="sticky top-0 z-30 w-full bg-white">
       <div className="border-b border-b-primary">
         <div className="mx-auto flex h-fit max-w-container items-center justify-between py-3 xl:px-4">
-          <Link className="h-8" to={email ? PATH_URL.home : PATH_URL.login}>
+          <Link className="h-8" to={token ? PATH_URL.home : PATH_URL.login}>
             Smart city
           </Link>
 
@@ -98,7 +98,7 @@ export default function Header() {
         </div>
       </div>
 
-      {getEmail() && <NavBar />}
+      {getToken() && <NavBar />}
 
       <ChatContextProvider>
         <ChatModal forceRender />
