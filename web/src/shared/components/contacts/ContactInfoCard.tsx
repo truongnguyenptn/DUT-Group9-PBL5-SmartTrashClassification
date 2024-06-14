@@ -36,7 +36,7 @@ export function ContactInfoCard({
           className="rounded-full"
           height={md ? 180 : 100}
           preview={false}
-          src={defunctInformation.photo || DefaultAvatar}
+          src={DefaultAvatar}
           width={md ? 180 : 100}
         />
       </div>

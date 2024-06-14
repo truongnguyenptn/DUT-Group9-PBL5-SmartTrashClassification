@@ -3,30 +3,32 @@ import NavBarItem from './Item';
 import { PATH_URL, sections } from '#/shared/utils/constant';
 import { SectionId } from '#/shared/utils/type';
 import { useContactDataVar } from '#/shared/hooks/useContactDataVar';
-
+import { ReactComponent as Support } from '#/assets/svgs/customer-support-filled.svg';
+import { ReactComponent as Location } from '#/assets/svgs/arrival-filled.svg';
+import { ReactComponent as Fold } from '#/assets/svgs/folder-filled.svg';
 export default function NavBar() {
   const sections = [
     {
       to: PATH_URL.home,
-      // icon?: ;
-      title: 'Home',
-      description: 'Home',
-      id: SectionId.Contacts,
-    },
-    {
-      to: '/information',
-      // icon?: ;
+      icon: <Support />,
       title: 'Home',
       description: 'Home',
       id: SectionId.Contacts,
     },
     {
       to: PATH_URL.bins,
-      // icon?: ;
-      title: 'Home',
-      description: 'Home',
+      icon: <Location />,
+      title: 'Path Finding',
+      description: 'Path finding',
       id: SectionId.Contacts,
     },
+    // {
+    //   to: PATH_URL.statistics,
+    //   icon: <Fold />,
+    //   title: 'Statistics',
+    //   description: 'Statistics',
+    //   id: SectionId.Contacts,
+    // },
   ];
 
   return (

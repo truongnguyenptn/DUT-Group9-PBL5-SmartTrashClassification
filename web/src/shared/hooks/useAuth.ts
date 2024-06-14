@@ -61,21 +61,26 @@ export function useAuth() {
     isError,
     isLoading,
     login: async (username: string, password: string, rememberMe: boolean) => {
-      const response = await request.post(`/login`, {
-        username,
-        password
-      });
-      if (response.data.access_token) {
-        setToken(JSON.stringify(response.data));
+      try {
+        const response = await request.post(`/login`, {
+          username,
+          password
+        });
+        if (response.data.access_token) {
+          setToken(JSON.stringify(response.data));
+        }
+
+        setProviderCompanyName("company");
+        setName("smartcity");
+        setName("smartcity@gmail.com");
+
+        showSuccess(t('message.loginSuccess'));
+        navigate(PATH_URL.home);
+        scrollToTop();
       }
-
-      setProviderCompanyName("company");
-      setName("smartcity");
-      setName("smartcity@gmail.com");
-
-      showSuccess(t('message.loginSuccess'));
-      navigate(PATH_URL.home);
-      scrollToTop();
+      catch (error) {
+        showError(t('error.pleaseTryAgain'));
+      }
     },
     signOut: () => {
       clearEmail();

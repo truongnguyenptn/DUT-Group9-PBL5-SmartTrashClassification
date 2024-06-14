@@ -77,7 +77,7 @@ export function FormalitiesContainer() {
   };
 
   return (
-    <SectionLayout isEmpty={!formalities[0]} loading={isLoading && !error}>
+    <SectionLayout>
       {formalities.length > 0 && (
         <div className="flex h-full w-full md:flex-col-reverse md:px-4 lg:gap-x-2">
           <div className="h-full w-1/2 overflow-y-auto md:w-full">

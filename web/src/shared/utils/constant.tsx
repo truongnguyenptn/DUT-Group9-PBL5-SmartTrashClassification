@@ -100,6 +100,7 @@ export const IS_MD_SCREEN = window.innerWidth <= 768;
 
 export const PATH_URL = {
   home: '/section/home',
+  statistics: '/section/statistics',
   documents: '/section/documents',
   formalities: '/section/formalities',
   funeralService: '/section/funeral-service',
