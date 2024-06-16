@@ -30,7 +30,7 @@ export default function SectionLayout({
 
       <div
         className={twMerge(
-          'relative mx-auto h-full w-full max-w-container rounded-2xl p-6 md:h-max md:rounded-none md:p-0',
+          'relative mx-auto w-full max-w-container rounded-2xl p-6 md:h-max md:rounded-none md:p-0',
           backgroundColor,
         )}
       >

@@ -22,19 +22,19 @@ export const PATHS: Record<string, PathProps> = {
   ['formalities']: {
     headerClass: 'bg-white',
     path: `${PREFIX_SECTION}/formalities`,
-    statusLegendVisible: true,
+    statusLegendVisible: false,
     title: 'section.formalities',
   },
   ['funeral']: {
     headerClass: 'bg-white',
     path: `${PREFIX_SECTION}/funeralService`,
-    statusLegendVisible: true,
+    statusLegendVisible: false,
     title: 'section.funeralService',
   },
   ['rmr']: {
     headerClass: 'bg-white',
     path: `${PREFIX_SECTION}/funeralService`,
-    statusLegendVisible: true,
+    statusLegendVisible: false,
     title: 'section.transportation',
   },
 };

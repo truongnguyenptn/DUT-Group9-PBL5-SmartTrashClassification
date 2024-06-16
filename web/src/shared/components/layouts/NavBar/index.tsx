@@ -22,13 +22,13 @@ export default function NavBar() {
       description: 'Path finding',
       id: SectionId.Contacts,
     },
-    // {
-    //   to: PATH_URL.statistics,
-    //   icon: <Fold />,
-    //   title: 'Statistics',
-    //   description: 'Statistics',
-    //   id: SectionId.Contacts,
-    // },
+    {
+      to: PATH_URL.statistics,
+      icon: <Fold />,
+      title: 'Statistics',
+      description: 'Statistics',
+      id: SectionId.Contacts,
+    },
   ];
 
   return (

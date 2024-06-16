@@ -81,7 +81,7 @@
     "successfully": "Successfully",
     "loginSuccess": "Log in successfully"
   },
-  "error": {
+  "": {
     "pleaseTryAgain": "Please try again later!",
     "notAvailable": "N/A",
     "inValidAccLogin": "The account you’ve entered is incorrect. Please try again!",

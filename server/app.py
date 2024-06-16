@@ -172,9 +172,9 @@ def login():
         access_token = create_access_token(identity={'username': username})
         user_info = {
             'username': user['username'],
-            'name': user['name'],
-            'sdt': user['sdt'],
-            'gmail': user['gmail']
+            'name': user.get('name'),
+            'sdt': user.get('sdt'),
+            'gmail': user.get('gmail')
         }
         return jsonify(access_token=access_token, user_info=user_info), 200
     else:
@@ -221,7 +221,7 @@ def get_me():
         return jsonify(user_info), 200
     else:
         return jsonify(message="User not found"), 404
-    
+        
 @app.route('/',methods=['GET'])
 def index_page():
 	return render_template('index.html')
@@ -250,46 +250,19 @@ def submit():
 		#print('request data:',request.get_data())
 
 		img_data = request.files['img']
-		#print('image data:',type(img_data))
-		#print('*****')
-		#print('')
-
 
 		#create byte string of img file
 		img_byte_string = img_data.read()
-		#print('type of data:',type(img_byte_string))
-		#print('*****')
-  
-		#print('')
 
 		#read byte string to form 1d array
 		img_array = np.frombuffer(img_byte_string,dtype=np.uint8)
-		#print("shape of array:",img_array.shape)
-		#print(type(img_array))
-		#print('*****')
-		#print('')
+
 
 		#ready array to form 3 dimensional array
 		img = cv2.imdecode(img_array,cv2.IMREAD_COLOR)
-		#print(img.shape)
-		#print('*****')
-		#print('')
-
-
-		#display img
-		#cv2.imshow("input image",img)
-		#cv2.waitKey(0)
-		#cv2.destroyAllWindows()
-
-		
-		#cv2.imshow("img",img)
-		#cv2.waitKey(0)
-		#cv2.destroyAllWindows()
-
 
 		#loading model net
 		model_path = './saved_models/Model.h5'
-		# model = tf.keras.models.load_model(model_path)
 		model = tf.keras.models.load_model(model_path)
   
 		#print(model)	
@@ -422,6 +395,12 @@ def update_bin():
         schema:
           type: object
           properties:
+            id:
+              type: string
+              description: ID of the trash bin
+            name:
+              type: string
+              description: Name of the trash bin
             lat:
               type: number
               format: float
@@ -433,9 +412,12 @@ def update_bin():
             status:
               type: string
               description: Status of the trash bin
-            id:
+            ultraSonicDistance1:
               type: string
-              description: ID of the trash bin
+              description: Ultrasonic Distance 1 of the trash bin
+            ultraSonicDistance2:
+              type: string
+              description: Ultrasonic Distance 2 of the trash bin
     responses:
       200:
         description: Bin updated successfully
@@ -443,19 +425,30 @@ def update_bin():
     data = request.json
     print(data)
 
-    lat = data.get('lat')
-    lng = data.get('lng')
-    status = data.get('status')
     _id = data.get('id')
+    if data.get('ultraSonicDistance1') and float(data.get('ultraSonicDistance1')) <= 30:
+        status = '1'
+    else :
+        status = '0'
+    update_data = {k: v for k, v in {
+        'name': data.get('name'),
+        'lat': data.get('lat'),
+        'lng': data.get('lng'),
+        'status': status,
+        'ultraSonicDistance1': data.get('ultraSonicDistance1'),
+        'ultraSonicDistance2': data.get('ultraSonicDistance2')
+    }.items() if v is not None}
 
-    # Update or insert document based on provided _id
+
+    # Update or insert the document based on the provided _id
     result = collection.update_one(
         {'_id': _id},
-        {'$set': {'lat': lat, 'lng': lng, 'status': status}},
+        {'$set': update_data},
         upsert=True
     )
 
     return jsonify({'message': 'Bin updated successfully'}), 200
+
 
 @app.route('/bins', methods=['GET'])
 def get_bins():

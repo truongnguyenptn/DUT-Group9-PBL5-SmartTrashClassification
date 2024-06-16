@@ -15,19 +15,19 @@ const LayoutMobile = lazy(() => import('./LayoutMobile'));
 export default function Layout({ children }: LayoutProps) {
   const LayoutComponent = isMobile ? LayoutMobile : LayoutDesktop;
 
-  const { refetch } = useGetCurrentUser({});
-  const { update } = useContactDataVar();
+  // const { refetch } = useGetCurrentUser({});
+  // const { update } = useContactDataVar();
 
-  useLayoutEffect(() => {
-    const contactData = getContactData();
-    if (contactData) {
-      update(JSON.parse(contactData));
-    }
+  // useLayoutEffect(() => {
+  //   const contactData = getContactData();
+  //   if (contactData) {
+  //     update(JSON.parse(contactData));
+  //   }
 
-    const interval = setInterval(() => refetch(), REFETCH_GET_ME_INTERVAL_TIME);
+  //   const interval = setInterval(() => refetch(), REFETCH_GET_ME_INTERVAL_TIME);
 
-    return () => clearInterval(interval);
-  }, [refetch, update]);
+  //   return () => clearInterval(interval);
+  // }, [refetch, update]);
 
   return <LayoutComponent>{children}</LayoutComponent>;
 }

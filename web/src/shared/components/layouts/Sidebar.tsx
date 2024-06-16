@@ -31,9 +31,9 @@ export default function Sidebar({ isEmpty }: SidebarProps) {
         </Typography.Title>
 
         <div className="flex">
-          <div className="flex h-8 w-10 items-center justify-center">
+          {/* <div className="flex h-8 w-10 items-center justify-center">
             <StatusLegend />
-          </div>
+          </div> */}
 
           <CloseOutlined
             className="flex h-8 w-8 items-center justify-center"
@@ -50,9 +50,9 @@ export default function Sidebar({ isEmpty }: SidebarProps) {
           <CloseOutlined />
         </div>
 
-        <div className="absolute -left-5 top-[1.563rem] z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white shadow-md">
+        {/* <div className="absolute -left-5 top-[1.563rem] z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white shadow-md">
           <StatusLegend />
-        </div>
+        </div> */}
       </div>
     </>
   );

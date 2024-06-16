@@ -71,6 +71,8 @@
       }
 
       .control {
+        gap: 4px;
+        margin-top: 10px;
         margin-bottom: 10px;
       }
 
@@ -82,6 +84,13 @@
       .waypoint-list {
         border: 1px solid #ccc;
         padding: 5px;
+      }
+
+      .submit-btn {
+        background-color: #dada2c !important;
+      }
+      .delete-btn {
+        background-color: #da2c2c !important;
       }
     </style>
   </head>
@@ -100,14 +109,14 @@
           End Point: <br />Latitude: <br />Longitude:
         </div>
       </div>
-      <div class="control">
+      <!-- <div class="control">
         <button class="button" id="addWaypointBtn">Add a waypoint</button>
 
         <div id="wayPoints" class="green"></div>
-      </div>
+      </div> -->
 
       <div class="control">
-        <button class="button" id="findRouteBtn">Find route</button>
+        <button class="button submit-btn" id="findRouteBtn">Find route</button>
 
         <div id="totalTime"></div>
       </div>
@@ -206,34 +215,33 @@
 
       function updateWaypointsDisplay() {
         // Clear the waypoints display
-        wayPointsDiv.innerHTML = '';
+        // wayPointsDiv.innerHTML = '';
 
         // Update the display for each waypoint
         waypoints.forEach(function (waypoint, index) {
-          var waypointDiv = document.createElement('div');
-          waypointDiv.innerHTML =
-            'Waypoint ' +
-            (index + 1) +
-            ':<br>' +
-            'Latitude: ' +
-            waypoint.lat.toFixed(4) +
-            '<br>' +
-            'Longitude: ' +
-            waypoint.lng.toFixed(4) +
-            ' <button onclick="deleteWaypointMarker(' +
-            index +
-            ')">Delete</button><br><br>';
-
-          wayPointsDiv.appendChild(waypointDiv);
+          // var waypointDiv = document.createElement('div');
+          // waypointDiv.innerHTML =
+          //   'Waypoint ' +
+          //   (index + 1) +
+          //   ':<br>' +
+          //   'Latitude: ' +
+          //   waypoint.lat.toFixed(4) +
+          //   '<br>' +
+          //   'Longitude: ' +
+          //   waypoint.lng.toFixed(4) +
+          //   ' <button class="button delete-btn" onclick="deleteWaypointMarker(' +
+          //   index +
+          //   ')">Delete</button><br><br>';
+          // wayPointsDiv.appendChild(waypointDiv);
         });
       }
 
       function onWayPointMapClick(e) {
         var waypoint = e.latlng;
-
+        console.log(e.latlng.status, e.latlng.status == '1');
         // Add a circle marker to the map at the waypoint location
         var waypointMarker = L.circleMarker(waypoint, {
-          color: 'green',
+          color: e.latlng.status == '1' ? 'yellow' : 'green',
           radius: 8,
         }).addTo(map);
 
@@ -300,7 +308,9 @@
 
         var yourGeoJSONData = [[start.lat, start.lng]];
         waypoints.forEach(function (waypoint) {
-          yourGeoJSONData.push([waypoint.lat, waypoint.lng]);
+          if (waypoint.status == '1') {
+            yourGeoJSONData.push([waypoint.lat, waypoint.lng]);
+          }
         });
         yourGeoJSONData.push([end.lat, end.lng]);
 
@@ -318,14 +328,24 @@
           .catch((error) => console.error('Error:', error));
       }
       function fetchAllPoints() {
+        console.log('Fetching points...');
         fetch('http://localhost:5050/bins')
           .then((response) => response.json())
           .then((data) => {
+            waypointMarkers = [];
+
+            waypoints = [];
             data.forEach((point) => {
               // Change 'forEach' to 'forEach'
               console.log(point);
+              //clear all markers
+
               onWayPointMapClick({
-                latlng: { lat: point.lat, lng: point.lng },
+                latlng: {
+                  lat: point.lat,
+                  lng: point.lng,
+                  status: point.status,
+                },
               });
             });
           })
@@ -336,6 +356,7 @@
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             (position) => {
+              console.log('currposs', position);
               start = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
@@ -370,10 +391,16 @@
 
       startPointBtn.addEventListener('click', onStartPointClick);
       endPointBtn.addEventListener('click', onEndPointClick);
-      addWaypointBtn.addEventListener('click', onWayPointClick);
+      // addWaypointBtn.addEventListener('click', onWayPointClick);
       findRouteBtn.addEventListener('click', onFindRouteClick);
-      fetchAllPoints();
+      setInterval(fetchAllPoints, 3000);
       useCurrentLocationAsStart();
+      onEndPointMapClick({
+        latlng: {
+          lat: 16.04901777081707,
+          lng: 108.21758370460988,
+        },
+      });
     </script>
   </body>
 </html>
